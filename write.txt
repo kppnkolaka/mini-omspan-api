@@ -1,0 +1,1 @@
+[{"name":"PFK salah satker/akun","result":0},{"name":"PFK salah potong","result":0},{"name":"PFK salah jendok","result":0},{"name":"PFK salah pecahan","result":0},{"name":"Suspen pengembalian belanja","result":1},{"name":"Suspend penerimaan","result":0},{"name":"Suspend akun","result":0},{"name":"Retur SP2D","result":1},{"name":"Hold Invoice","result":0}]
