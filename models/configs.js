@@ -16,12 +16,21 @@ const schema = {
 }
 
 exports.set = config => {
-  const configs = schema[Object.keys(config)[1]];
-  RedisClient.set('configs', JSON.stringify(configs));
+  if(config === 'seed') {
+    return RedisClient.set('configs', JSON.stringify(schema)).then(res => {
+      return res;
+    });
+  }
+
+  schema[Object.keys(config)[0]] = config[Object.keys(config)[0]];
+
+  return RedisClient.set('configs', JSON.stringify(schema)).then(res => {
+    return res;
+  });
 }
 
 exports.get = () => {
-  return RedisClient.get('confifs').then(res => {
+  return RedisClient.get('configs').then(res => {
     return JSON.parse(res);
   });
 }

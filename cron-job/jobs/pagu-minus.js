@@ -22,6 +22,8 @@ function PaguMinusJob() {
       const auth = await authLimiter()(null);
       token = auth.data.token;
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('failed authentication...', 'satker');
     }
 
@@ -30,6 +32,8 @@ function PaguMinusJob() {
     try {
       daftarSatker = await Request.paguMinus(token, getPaguMinus.satker);
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('error', 'satker');
     }
 
@@ -46,10 +50,9 @@ function PaguMinusJob() {
     }
 
     return Promise.all(paguMinusPromise).then( res => {
-      console.log(res, 'RRRRRR');
+      console.log(res);
+      PaguMinus.setDesc('time', Date.now());
       return this.paguMinus;
-    }).catch( () => {
-      console.log('ERROR PROMISE ALL');
     });
   }
 
@@ -65,6 +68,8 @@ function PaguMinusJob() {
       const auth = await authLimiter()(null);
       token = auth.data.token;
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('failed authentication...', 'kelakun');
     }
 
@@ -72,6 +77,8 @@ function PaguMinusJob() {
     try {
       dataKelakun = await Request.paguMinus(token, getPaguMinus.kelakun({ satker: kdsatker, kppn: '156' }))
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('error', 'kelakun');
     }
 
@@ -110,6 +117,8 @@ function PaguMinusJob() {
       const auth = await authLimiter()(null);
       token = auth.data.token;
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('failed authentication...');
     }
 
@@ -117,6 +126,8 @@ function PaguMinusJob() {
     try {
       dataPerAkun = await Request.paguMinus(token, getPaguMinus.akun(urlParam));
     } catch (error) {
+      PaguMinus.setDesc('err', true);
+      PaguMinus.incrDesc();
       console.log('error', 'perakun');
     }
 

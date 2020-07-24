@@ -14,21 +14,25 @@ exports.set = paguMinusList => {
 
 exports.del = () => {
   RedisClient.del(KEY);
+  RedisClient.del(KEY_DESC);
 }
 
 exports.setDesc = (key, value) => {
   // let schema = {
   //   'err': false,  resolved promise all
   //   'err_num': 0,  catch promise all
-  //   'time': 0,     resolved promise all
-  //   'batch': 0     resolved promise all
+  //   'time': 0     resolved promise all
   // }
 
-  RedisClient.hset('KEY_DESC', key, value);
+  RedisClient.hset(KEY_DESC, key, value);
 }
 
 exports.getDesc = () => {
   return RedisClient.hgetall(KEY_DESC).then(res => {
     return res;
   });
+}
+
+exports.incrDesc = () => {
+  RedisClient.hincrby(KEY_DESC, 'err_num', 1);
 }

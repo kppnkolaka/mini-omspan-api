@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const cronJob = require('./cron-job/index');
-const dbConnection = require('./configs/mongoose');
+const CronJob = require('./cron-job/index');
+// const dbConnection = require('./configs/mongoose');
 const redisClient = require('./services/redis');
 const bodyParser = require('body-parser');
 const controllers = require('./controllers/index');
@@ -24,11 +24,12 @@ redisClient.on('error', () => {
   console.log('Redis connection failed');
 });
 
-cronJob();
-
+app.use('/config', controllers.config);
 app.use('/auth', controllers.auth);
 app.use('/seed', controllers.seeding);
 app.use('/rekon', controllers.rekon);
 app.use('/pagu-minus', controllers.pagu_minus);
+
+CronJob.startCron();
 
 app.listen(port, () => console.log(`Using port ${port}`));
